@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UsefulApp.Views.AlarmListPage">
+  <ContentPage.Content>
+    <StackLayout>
+      <Button Text="Добавить" Command="{Binding CreateAlarmCommand}"/>
+      <ListView x:Name="alarmsList" ItemsSource="{Binding Alarms}" SelectedItem="{Binding SelectedAlarm, Mode=TwoWay}" HasUnevenRows="True">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <ViewCell.View>
+                <StackLayout Orientation="Horizontal">
+                  <Label Text="{Binding sAlarmDate}" FontSize="Medium"/>
+                  <Label Text="{Binding sAlarmTime}" FontSize="Medium"/>
+                  <Label Text="{Binding sAlarmVolumeLevel}" FontSize="Small"/>
+                </StackLayout>
+              </ViewCell.View>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

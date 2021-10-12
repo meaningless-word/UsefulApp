@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UsefulApp.Views.WeatherPage">
+  <ContentPage.Content>
+    <Grid BackgroundColor="Black" RowSpacing="5">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <Frame BackgroundColor="Tan" Grid.Column="0" Grid.Row="0">
+        <StackLayout Padding="5" VerticalOptions="Center">
+          <Label Text="Inside" FontSize="40" HorizontalTextAlignment="Center"/>
+          <Label x:Name="tmprInside" Text="{Binding InsideTmprtr}" FontSize="60" HorizontalTextAlignment="Center" TextColor="DarkBlue"/>
+        </StackLayout>
+      </Frame>
+      <Frame BackgroundColor="Plum" Grid.Column="0" Grid.Row="1">
+        <StackLayout Padding="5" VerticalOptions="CenterAndExpand">
+          <Label Text="Outside" FontSize="40" HorizontalTextAlignment="Center"/>
+          <Label x:Name="tmprOutside" Text="{Binding OutsideTmprtr}" FontSize="60" HorizontalTextAlignment="Center" TextColor="DarkBlue"/>
+        </StackLayout>
+      </Frame>
+      <Frame BackgroundColor="Teal" Grid.Column="0" Grid.Row="2">
+        <StackLayout Padding="5" VerticalOptions="CenterAndExpand">
+          <Label Text="Pressure" FontSize="40" HorizontalTextAlignment="Center"/>
+          <Label x:Name="atmPressure" Text = "{Binding AtmPressure}" FontSize="60" HorizontalTextAlignment="Center" TextColor="DarkBlue"/>
+        </StackLayout>
+      </Frame>
+    </Grid>
+  </ContentPage.Content>
+</ContentPage>
