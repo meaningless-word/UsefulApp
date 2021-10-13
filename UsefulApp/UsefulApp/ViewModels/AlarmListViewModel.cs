@@ -16,7 +16,7 @@ namespace UsefulApp.ViewModels
 		public ObservableCollection<AlarmViewModel> Alarms { get; set; }
 
 		private AlarmViewModel _selectedAlarm;
-		public INavigation Navigation { get; set; }
+		private INavigation _navigation;
 
 		public ICommand BackCommand { get; protected set; }
 		public ICommand SaveAlarmCommand { get; protected set; }
@@ -24,8 +24,10 @@ namespace UsefulApp.ViewModels
 		public ICommand DeleteAlarmCommand { get; protected set; }
 
 
-		public AlarmListViewModel()
+		public AlarmListViewModel(INavigation navigation)
 		{
+			_navigation = navigation;
+
 			Alarms = new ObservableCollection<AlarmViewModel>();
 			/* где-то здесь нужно связать коллекцию с хранилищем */
 
@@ -45,7 +47,7 @@ namespace UsefulApp.ViewModels
 					AlarmViewModel tmpAlarm = value;
 					_selectedAlarm = null;
 					OnPropertyChanged("SelectedAlarm");
-					Navigation.PushModalAsync(new AlarmPage(tmpAlarm));
+					_navigation.PushAsync(new AlarmPage(tmpAlarm));
 				}
 			}
 		}
@@ -58,7 +60,7 @@ namespace UsefulApp.ViewModels
 
 		private void Back()
 		{
-			Navigation.PopModalAsync();
+			_navigation.PopAsync();
 		}
 
 		private void SaveAlarm(object alarmObject)
@@ -73,7 +75,7 @@ namespace UsefulApp.ViewModels
 
 		private void CreateAlarm()
 		{
-			Navigation.PushAsync(new AlarmPage(new AlarmViewModel() { ListViewModel = this }));
+			_navigation.PushAsync(new AlarmPage(new AlarmViewModel(this)));
 		}
 
 		private void DeleteAlarm(object alarmObject)

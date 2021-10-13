@@ -13,14 +13,12 @@ namespace UsefulApp
 
 		private async void GetWeather_Click(object sender, EventArgs e)
 		{
-			WeatherPage weatherPage = new WeatherPage();
-			await Navigation.PushModalAsync(weatherPage);
+			await Navigation.PushModalAsync(new WeatherPage());
 		}
 
 		private async void alarmButton_Clicked(object sender, EventArgs e)
 		{
-			AlarmListPage alarmListPage = new AlarmListPage();
-			await Navigation.PushAsync(alarmListPage);
+			await Navigation.PushAsync(new AlarmListPage());
 		}
 	}
 }

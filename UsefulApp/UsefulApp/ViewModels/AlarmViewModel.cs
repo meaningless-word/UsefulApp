@@ -9,32 +9,20 @@ namespace UsefulApp.ViewModels
 	public class AlarmViewModel : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
-		private AlarmListViewModel _listViewModel;
+		public AlarmListViewModel ListViewModel { get; }
 
 		public Alarm alarm { get; private set; }
 
-		public AlarmViewModel()
+		public AlarmViewModel(AlarmListViewModel listViewModel)
 		{
+			ListViewModel = listViewModel;
 			alarm = new Alarm
 			{
+				/* начальные устанвки для новой сущности */
 				alarmAt = DateTime.Now.AddHours(1),
 				volumeLevel = 50,
 				repeatDaily = false
 			};
-		}
-
-		public AlarmListViewModel ListViewModel
-		{
-			get { return _listViewModel; }
-			set
-			{
-				if (_listViewModel != value)
-				{
-					_listViewModel = value;
-					OnPropertyChanged("ListViewModel");
-				}
-			}
-
 		}
 
 		public DateTime alarmDate
@@ -89,10 +77,6 @@ namespace UsefulApp.ViewModels
 				}
 			}
 		}
-
-		public string sAlarmDate { get { return alarm.alarmAt.ToString("dd.MM.yyyy"); } }
-		public string sAlarmTime { get { return alarm.alarmAt.ToString("HH:mm"); } }
-		public string sAlarmVolumeLevel { get { return String.Format("{0:F0}%", alarm.volumeLevel); } }
 
 		protected void OnPropertyChanged(string propName)
 		{

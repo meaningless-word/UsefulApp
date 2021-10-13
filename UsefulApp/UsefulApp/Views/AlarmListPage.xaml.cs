@@ -15,7 +15,7 @@ namespace UsefulApp.Views
 		public AlarmListPage()
 		{
 			InitializeComponent();
-			BindingContext = new AlarmListViewModel() { Navigation = this.Navigation };
+			BindingContext = new AlarmListViewModel(Navigation);
 		}
 	}
 }

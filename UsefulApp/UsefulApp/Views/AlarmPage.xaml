@@ -1,27 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="UsefulApp.Views.AlarmPage">
-  <ContentPage.Content>
-    <StackLayout x:Name="stackLayout" BackgroundColor="LightGray">
-      <Label Text="Установить будильник"
-             HorizontalOptions="Center"
-             FontSize="Title"
-             Padding="30,10,30,10" />
-      <Label Text="Дата и время звонка" FontSize="Small" TextColor="Navy" HorizontalOptions="StartAndExpand" Padding="10,30,10,5" />
-      <DatePicker x:Name="datePicker" Format="dddd, dd.MM.yyyy" HorizontalOptions="CenterAndExpand" Date="{Binding alarmDate}" />
-      <TimePicker x:Name="timePicker" Format="HH:mm" HorizontalOptions="CenterAndExpand" Time="{Binding alarmTime}" />
+             x:Class="UsefulApp.Views.AlarmPage" Title="Установка будильника">
+  <StackLayout x:Name="stackLayout" BackgroundColor="LightGray">
+    <Label Text="Дата и время звонка" FontSize="Small" TextColor="Navy" HorizontalOptions="StartAndExpand" Padding="10,30,10,5" />
+    <DatePicker x:Name="datePicker" Format="dddd, dd.MM.yyyy" HorizontalOptions="CenterAndExpand" Date="{Binding alarmDate}" />
+    <TimePicker x:Name="timePicker" Format="HH:mm" HorizontalOptions="CenterAndExpand" Time="{Binding alarmTime}" />
 
-      <Label Text="Громкость сигнала" FontSize="Small" TextColor="Navy" HorizontalOptions="StartAndExpand" Padding="10,30,10,5" />
-      <Slider x:Name="slider" Minimum="0" Maximum="100" Value="{Binding volumeLevel}" ThumbColor="DodgerBlue" MinimumTrackColor="DodgerBlue" MaximumTrackColor="Gray"/>
+    <Label Text="Громкость сигнала" FontSize="Small" TextColor="Navy" HorizontalOptions="StartAndExpand" Padding="10,30,10,5" />
+    <Slider x:Name="slider" Minimum="0" Maximum="100" Value="{Binding volumeLevel}" ThumbColor="DodgerBlue" MinimumTrackColor="DodgerBlue" MaximumTrackColor="Gray"/>
 
-      <Label Text="Ежедневный повтор" FontSize="Small" TextColor="Navy" HorizontalOptions="StartAndExpand" Padding="10,30,10,5" />
-      <Switch x:Name="repeaterSwitch" IsToggled="{Binding repeatDaily}" OnColor="LightSteelBlue" ThumbColor="DodgerBlue" HorizontalOptions="Center"/>
-      <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-        <Button Text="Сохранить" BackgroundColor="Silver" Command="{Binding ListViewModel.SaveAlarmCommand}" CommandParameter="{Binding}" TextTransform="None" Clicked="Button_Clicked"/>
-        <Button Text="Удалить" BackgroundColor="Silver" Command="{Binding ListViewModel.DeleteAlarmCommand}" CommandParameter="{Binding}" TextTransform="None"/>
-        <Button Text="Назад" BackgroundColor="Silver" Command="{Binding ListViewModel.BackCommand}" CommandParameter="{Binding}" TextTransform="None"/>
-      </StackLayout>
+    <Label Text="Ежедневный повтор" FontSize="Small" TextColor="Navy" HorizontalOptions="StartAndExpand" Padding="10,30,10,5" />
+    <Switch x:Name="repeaterSwitch" IsToggled="{Binding repeatDaily}" OnColor="LightSteelBlue" ThumbColor="DodgerBlue" HorizontalOptions="Center"/>
+
+    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+      <Button Text="Сохранить" BackgroundColor="Silver" Command="{Binding ListViewModel.SaveAlarmCommand}" CommandParameter="{Binding}" TextTransform="None" Clicked="Button_Clicked"/>
+      <Button Text="Удалить" BackgroundColor="Silver" Command="{Binding ListViewModel.DeleteAlarmCommand}" CommandParameter="{Binding}" TextTransform="None"/>
+      <Button Text="Назад" BackgroundColor="Silver" Command="{Binding ListViewModel.BackCommand}" CommandParameter="{Binding}" TextTransform="None"/>
     </StackLayout>
-  </ContentPage.Content>
+  </StackLayout>
 </ContentPage>
