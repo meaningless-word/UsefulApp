@@ -18,8 +18,8 @@ namespace UsefulApp.ViewModels
 			ListViewModel = listViewModel;
 			alarm = new Alarm
 			{
-				/* начальные устанвки для новой сущности */
-				alarmAt = DateTime.Now.AddHours(1),
+				/* начальные установки для новой сущности */
+				alarmAt = DateTime.Now,
 				volumeLevel = 50,
 				repeatDaily = false
 			};

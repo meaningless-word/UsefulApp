@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using UsefulApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -18,14 +15,38 @@ namespace UsefulApp.Views
 			InitializeComponent();
 			ViewModel = viewModel;
 			BindingContext = ViewModel;
+			btnSave.IsEnabled = false;
+			datePicker.DateSelected += (sender, e) => PickersChanged(sender, new PropertyChangedEventArgs("Date"));
+			timePicker.PropertyChanged += (sender, e) => PickersChanged(sender, e);
+		}
 
-			datePicker.MinimumDate = DateTime.Now;
-			datePicker.MaximumDate = DateTime.Now.AddDays(7);
+		private void PickersChanged(object sender, PropertyChangedEventArgs e)
+		{
+			VisualStateManager.GoToState(datePicker, datePicker.Date + timePicker.Time < DateTime.Now ? "Invalid" : "Valid");
+			VisualStateManager.GoToState(timePicker, datePicker.Date + timePicker.Time < DateTime.Now ? "Invalid" : "Valid");
 		}
 
 		private void Button_Clicked(object sender, EventArgs e)
 		{
-			DisplayAlert("Уведомление", $"Будильник сработает через {(ViewModel.alarm.alarmAt - DateTime.Now):dd\\.hh\\:mm}", "Ok") ;
+			DisplayAlert("Уведомление", $"Будильник сработает через {(ViewModel.alarm.alarmAt - DateTime.Now):dd\\.hh\\:mm}", "Ok");
+		}
+
+		private void Ready_Clicked(object sender, EventArgs e)
+		{
+			if (ViewModel.alarm.alarmAt < DateTime.Now)
+			{
+				lblReady.Text = $"Будильник не может быть установлен на выбранное время!";
+			}
+			else
+			{
+				lblReady.Text = $"Будильник будет установлен на {(ViewModel.alarm.alarmAt):dd\\.MM\\.yyyy HH\\:mm}";
+				datePicker.IsEnabled = false;
+				timePicker.IsEnabled = false;
+				slider.IsEnabled = false;
+				repeaterSwitch.IsEnabled = false;
+				btnSave.IsEnabled = true;
+			}
+
 		}
 	}
 }

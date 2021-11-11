@@ -1,22 +1,84 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:UsefulApp"
              x:Class="UsefulApp.Views.AlarmPage" Title="Установка будильника">
-  <StackLayout x:Name="stackLayout" BackgroundColor="LightGray">
-    <Label Text="Дата и время звонка" FontSize="Small" TextColor="Navy" HorizontalOptions="StartAndExpand" Padding="10,30,10,5" />
-    <DatePicker x:Name="datePicker" Format="dddd, dd.MM.yyyy" HorizontalOptions="CenterAndExpand" Date="{Binding alarmDate}" />
-    <TimePicker x:Name="timePicker" Format="HH:mm" HorizontalOptions="CenterAndExpand" Time="{Binding alarmTime}" />
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <Style x:Key="datePickerValidator" TargetType="DatePicker">
+        <Setter Property="VisualStateManager.VisualStateGroups">
+          <VisualStateGroupList>
+            <VisualStateGroup x:Name="ValidStates">
+              <VisualState x:Name="Valid">
+                <VisualState.Setters>
+                  <Setter Property="TextColor" Value="DarkBlue"/>
+                </VisualState.Setters>
+              </VisualState>
+              <VisualState x:Name="Invalid">
+                <VisualState.Setters>
+                  <Setter Property="TextColor" Value="MediumVioletRed"/>
+                </VisualState.Setters>
+              </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup x:Name="CommonStates">
+              <VisualState x:Name="Disabled">
+                <VisualState.Setters>
+                  <Setter Property="TextColor" Value="Gray" />
+                </VisualState.Setters>
+              </VisualState>
+            </VisualStateGroup>
+          </VisualStateGroupList>
+        </Setter>
+      </Style>
+      <Style x:Key="timePickerValidator" TargetType="TimePicker">
+        <Setter Property="VisualStateManager.VisualStateGroups">
+          <VisualStateGroupList>
+            <VisualStateGroup x:Name="ValidStates">
+              <VisualState x:Name="Valid">
+                <VisualState.Setters>
+                  <Setter Property="TextColor" Value="DarkBlue"/>
+                </VisualState.Setters>
+              </VisualState>
+              <VisualState x:Name="Invalid">
+                <VisualState.Setters>
+                  <Setter Property="TextColor" Value="MediumVioletRed"/>
+                </VisualState.Setters>
+              </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup x:Name="CommonStates">
+              <VisualState x:Name="Disabled">
+                <VisualState.Setters>
+                  <Setter Property="TextColor" Value="Gray" />
+                </VisualState.Setters>
+              </VisualState>
+            </VisualStateGroup>
+          </VisualStateGroupList>
+        </Setter>
+      </Style>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  <ContentPage.Content>
+    <StackLayout x:Name="stackLayout" BackgroundColor="LightGray">
+      <Label Text="Дата и время звонка" FontSize="Small" TextColor="Navy" HorizontalOptions="StartAndExpand" Padding="10,30,10,5" />
+      <DatePicker x:Name="datePicker" Format="dddd, dd.MM.yyyy" HorizontalOptions="CenterAndExpand" Date="{Binding alarmDate}" Style="{StaticResource Key=datePickerValidator}" />
+      <TimePicker x:Name="timePicker" Format="HH:mm" HorizontalOptions="CenterAndExpand" Time="{Binding alarmTime}" Style="{StaticResource Key=timePickerValidator}" />
 
-    <Label Text="Громкость сигнала" FontSize="Small" TextColor="Navy" HorizontalOptions="StartAndExpand" Padding="10,30,10,5" />
-    <Slider x:Name="slider" Minimum="0" Maximum="100" Value="{Binding volumeLevel}" ThumbColor="DodgerBlue" MinimumTrackColor="DodgerBlue" MaximumTrackColor="Gray"/>
+      <Label Text="Громкость сигнала" FontSize="Small" TextColor="Navy" HorizontalOptions="StartAndExpand" Padding="10,30,10,5" />
+      <Slider x:Name="slider" Minimum="0" Maximum="100" Value="{Binding volumeLevel}" ThumbColor="DodgerBlue" MinimumTrackColor="DodgerBlue" MaximumTrackColor="Gray"/>
 
-    <Label Text="Ежедневный повтор" FontSize="Small" TextColor="Navy" HorizontalOptions="StartAndExpand" Padding="10,30,10,5" />
-    <Switch x:Name="repeaterSwitch" IsToggled="{Binding repeatDaily}" OnColor="LightSteelBlue" ThumbColor="DodgerBlue" HorizontalOptions="Center"/>
+      <Label Text="Ежедневный повтор" FontSize="Small" TextColor="Navy" HorizontalOptions="StartAndExpand" Padding="10,30,10,5" />
+      <Switch x:Name="repeaterSwitch" IsToggled="{Binding repeatDaily}" OnColor="LightSteelBlue" ThumbColor="DodgerBlue" HorizontalOptions="Center"/>
 
-    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-      <Button Text="Сохранить" BackgroundColor="Silver" Command="{Binding ListViewModel.SaveAlarmCommand}" CommandParameter="{Binding}" TextTransform="None" Clicked="Button_Clicked"/>
-      <Button Text="Удалить" BackgroundColor="Silver" Command="{Binding ListViewModel.DeleteAlarmCommand}" CommandParameter="{Binding}" TextTransform="None"/>
-      <Button Text="Назад" BackgroundColor="Silver" Command="{Binding ListViewModel.BackCommand}" CommandParameter="{Binding}" TextTransform="None"/>
+      <StackLayout Orientation="Vertical">
+        <Button Text="Готово" BackgroundColor="Silver" TextTransform="None" Padding="30,5" Clicked="Ready_Clicked"/>
+        <Label x:Name="lblReady" FontSize="Medium" TextColor="DarkCyan" HorizontalOptions="CenterAndExpand" Padding="10"/>
+      </StackLayout>
+
+      <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+        <Button x:Name="btnSave" Text="Сохранить" BackgroundColor="Silver" Command="{Binding ListViewModel.SaveAlarmCommand}" CommandParameter="{Binding}" TextTransform="None" Clicked="Button_Clicked"/>
+        <Button Text="Удалить" BackgroundColor="Silver" Command="{Binding ListViewModel.DeleteAlarmCommand}" CommandParameter="{Binding}" TextTransform="None"/>
+        <Button Text="Назад" BackgroundColor="Silver" Command="{Binding ListViewModel.BackCommand}" CommandParameter="{Binding}" TextTransform="None"/>
+      </StackLayout>
     </StackLayout>
-  </StackLayout>
+  </ContentPage.Content>
 </ContentPage>
