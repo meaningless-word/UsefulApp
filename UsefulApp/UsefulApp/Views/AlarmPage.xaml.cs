@@ -22,8 +22,8 @@ namespace UsefulApp.Views
 
 		private void PickersChanged(object sender, PropertyChangedEventArgs e)
 		{
-			VisualStateManager.GoToState(datePicker, datePicker.Date + timePicker.Time < DateTime.Now ? "Invalid" : "Valid");
-			VisualStateManager.GoToState(timePicker, datePicker.Date + timePicker.Time < DateTime.Now ? "Invalid" : "Valid");
+			VisualStateManager.GoToState(datePicker, ViewModel.alarm.alarmAt < DateTime.Now ? "Invalid" : "Valid");
+			VisualStateManager.GoToState(timePicker, ViewModel.alarm.alarmAt < DateTime.Now ? "Invalid" : "Valid");
 		}
 
 		private void Button_Clicked(object sender, EventArgs e)
